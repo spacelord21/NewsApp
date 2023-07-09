@@ -1,3 +1,27 @@
 {
-  "extends": "@tsconfig/react-native/tsconfig.json"
+  "extends": "@tsconfig/react-native/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "paths": {
+      "@features/*": [
+        "features/*"
+      ],
+      "@shared/*": [
+        "shared/*"
+      ],
+      "@entities/*": [
+        "entities/*"
+      ],
+      "@widgets/*": [
+        "widgets/*"
+      ],
+      "@app/*": [
+        "app/*"
+      ],
+      "@screens/*": [
+        "screens/*"
+      ],
+    }
+  },
+  "exclude": ["node_modules"]
 }
