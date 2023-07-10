@@ -10,7 +10,7 @@ const defaultOptions = {
 
 export const RootStack = () => {
   return (
-    <Stack.Navigator initialRouteName="mainStack">
+    <Stack.Navigator initialRouteName="authStack">
       <Stack.Screen
         name="authStack"
         component={AuthStack}
