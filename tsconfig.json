@@ -46,6 +46,9 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": true,
+    // "typeRoots": ["node_modules/@types"],
+    "types": ["@types/styled-components-react-native"]
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "include": ["src/**/*"]
 }

@@ -1,7 +1,7 @@
-import { darkTheme } from "./theme";
+import { theme } from "./theme";
 
 export { styled } from "./styled";
-export { darkTheme } from "./theme";
+export { theme } from "./theme";
 export { AppThemeProvider } from "./provider";
 
-export type Theme = typeof darkTheme;
+export type Theme = typeof theme;
