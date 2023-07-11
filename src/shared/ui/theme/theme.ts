@@ -80,6 +80,11 @@ export const theme = {
       fontFamily: "ROBOTO_LIGHT",
       letterSpacing: "0.4px",
     },
+    newsTitle: {
+      size: "26px",
+      fontFamily: "ROBOTO_LIGHT",
+      letterSpacing: "0.4px",
+    },
   },
   spacing: (multiplier: number) => THEME_GRID_STEP * multiplier,
 };

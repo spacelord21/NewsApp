@@ -10,7 +10,7 @@ const Container = styled.View`
   height: 120px;
   width: 100%;
   flex-direction: row;
-  background-color: ${({ theme }) => theme.palette.background.primary};
+  background-color: ${({ theme }) => theme.palette.background.secondary};
   justify-content: space-around;
   align-items: center;
 `;

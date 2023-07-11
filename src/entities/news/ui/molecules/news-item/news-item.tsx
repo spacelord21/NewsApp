@@ -4,23 +4,65 @@ import { NewsPicture } from "../../atoms";
 
 const Container = styled.View`
   flex-direction: column;
-  width: 300px;
-  height: 300px;
+  width: 95%;
   margin-top: ${({ theme }) => theme.spacing(3)}px;
+  justify-content: center;
 `;
 
-const Title = styled(Typography)`
-  color: ${({ theme }) => theme.palette.text.primary};
+const Title = styled(Typography).attrs({})`
+  color: ${({ theme }) => theme.palette.text.secondary};
+  text-align: left;
+  position: absolute;
+  bottom: ${({ theme }) => theme.spacing(2)}px;
+  left: ${({ theme }) => theme.spacing(2)}px;
+  letter-spacing: 2px;
+  width: 90%;
 `;
 
-type TNewsItemProps = TNews;
+const DescriptionWrapper = styled.View`
+  background-color: ${({ theme }) => theme.palette.background.secondary};
+`;
 
-export const NewsItem = ({ imageUrl, id, body, title }: TNewsItemProps) => {
+const ImageWrapper = styled.View`
+  position: relative;
+  border-radius: 20px;
+`;
+
+type TNewsItemProps = {
+  news: TNews;
+};
+
+export const NewsItem = ({ news }: TNewsItemProps) => {
+  const { imageUrl, title } = news;
   return (
     <Container>
-      <NewsPicture imageUrl={imageUrl} />
-      <Title variant="title">{title}</Title>
-      <PrimaryButton onPress={() => {}}>К НОВОСТИ</PrimaryButton>
+      <ImageWrapper
+        style={{
+          shadowColor: "rgb(0, 0, 0)",
+          shadowOffset: {
+            width: 5,
+            height: 5,
+          },
+          shadowOpacity: 0.5,
+          shadowRadius: 2,
+          elevation: 6,
+          backgroundColor: "white",
+        }}
+      >
+        <NewsPicture imageUrl={imageUrl} />
+        <Title
+          variant="newsTitle"
+          style={{
+            textShadowColor: "black",
+            textShadowOffset: { height: 1, width: 1 },
+            textShadowRadius: 10,
+          }}
+        >
+          {title}
+        </Title>
+      </ImageWrapper>
+
+      <DescriptionWrapper></DescriptionWrapper>
     </Container>
   );
 };

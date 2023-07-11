@@ -10,16 +10,11 @@ const Container = styled.View`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: ${({ theme }) => theme.palette.background.primary};
 `;
 
 export const News = () => {
-  const { news: fetchingNews, errorMessage, loading } = useNews();
-  const [news, setNews] = useState<typeof fetchingNews>([]);
-  useEffect(() => {
-    console.log(fetchingNews);
-
-    setNews(fetchingNews);
-  }, [fetchingNews]);
+  const { news, errorMessage, loading } = useNews();
 
   return (
     <Container>
