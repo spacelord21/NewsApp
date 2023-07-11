@@ -1,9 +1,6 @@
-import { useAppDispatch } from "@app/store";
 import { NewsList, useNews } from "@entities/news";
-import { fetchNews } from "@entities/news/api";
-import { Typography, styled } from "@shared/ui";
+import { styled } from "@shared/ui";
 import { Header } from "@widgets/header";
-import { useEffect, useState } from "react";
 
 const Container = styled.View`
   flex: 1;
@@ -14,12 +11,17 @@ const Container = styled.View`
 `;
 
 export const News = () => {
-  const { news, errorMessage, loading } = useNews();
+  const { news, errorMessage, loading, displayedNews, amountOfPages } =
+    useNews();
 
   return (
     <Container>
       <Header />
-      <NewsList news={news} />
+      <NewsList
+        news={displayedNews}
+        loading={loading}
+        amountOfPages={amountOfPages}
+      />
     </Container>
   );
 };
