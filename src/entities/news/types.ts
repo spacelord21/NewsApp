@@ -1,8 +1,9 @@
-// не работает сервер, поэтому тип пока что выдумываю сам.
-
 export type TNews = {
   id: number;
-  image: string;
+  imageUrl: string;
   title: string;
-  description: string;
+  imageAdditionalUrl: string;
+  body: string;
+  shortText: string;
+  createdAt: string;
 };
