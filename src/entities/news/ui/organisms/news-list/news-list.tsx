@@ -5,6 +5,9 @@ import { NewsItem } from "../../molecules";
 import { useState } from "react";
 import { useAppDispatch } from "@app/store";
 import { fetchMoreNews } from "@entities/news/api";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { TMainStackParamList } from "@app/navigation/types";
+import { useNavigation } from "@react-navigation/native";
 
 const List = styled(FlatList<TNews>)`
   flex-grow: 1;
@@ -22,11 +25,19 @@ type TNewsListProps = {
   amountOfPages: number;
 };
 
-export const NewsList = ({ news, loading, amountOfPages }: TNewsListProps) => {
-  const renderItem: ListRenderItem<TNews> = ({ item }) => {
-    return <NewsItem news={item} key={item.id} />;
-  };
+type Navigation = NativeStackNavigationProp<TMainStackParamList, "news">;
 
+export const NewsList = ({ news, loading, amountOfPages }: TNewsListProps) => {
+  const navigation = useNavigation<Navigation>();
+  const renderItem: ListRenderItem<TNews> = ({ item }) => {
+    return (
+      <NewsItem
+        news={item}
+        key={item.id}
+        onPress={() => navigation.navigate("newsItem", item)}
+      />
+    );
+  };
   const dispatch = useAppDispatch();
   // изначально с page = 2, т.к с api предназначенным под inf scroll первый фетч был бы ?page=1
   const [page, setPage] = useState(2);

@@ -1,10 +1,12 @@
+import { TNews } from "@entities/news/types";
+
 export type TAuthStackParamList = {
   auth: undefined;
 };
 
 export type TMainStackParamList = {
   news: undefined;
-  newItem: undefined;
+  newsItem: TNews;
 };
 
 export type TRootStackParamList = {

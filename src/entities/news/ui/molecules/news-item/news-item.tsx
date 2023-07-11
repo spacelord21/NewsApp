@@ -2,10 +2,8 @@ import { TNews } from "@entities/news/types";
 import { PrimaryButton, Typography, styled } from "@shared/ui";
 import { NewsPicture } from "../../atoms";
 
-const Container = styled.View`
+const Container = styled.TouchableWithoutFeedback`
   flex-direction: column;
-  width: 95%;
-  margin-top: ${({ theme }) => theme.spacing(3)}px;
   justify-content: center;
 `;
 
@@ -26,16 +24,19 @@ const DescriptionWrapper = styled.View`
 const ImageWrapper = styled.View`
   position: relative;
   border-radius: 20px;
+  width: 95%;
+  margin-top: ${({ theme }) => theme.spacing(3)}px;
 `;
 
 type TNewsItemProps = {
   news: TNews;
+  onPress: () => void;
 };
 
-export const NewsItem = ({ news }: TNewsItemProps) => {
+export const NewsItem = ({ news, onPress }: TNewsItemProps) => {
   const { imageUrl, title } = news;
   return (
-    <Container>
+    <Container onPress={onPress}>
       <ImageWrapper
         style={{
           shadowColor: "rgb(0, 0, 0)",
@@ -61,8 +62,6 @@ export const NewsItem = ({ news }: TNewsItemProps) => {
           {title}
         </Title>
       </ImageWrapper>
-
-      <DescriptionWrapper></DescriptionWrapper>
     </Container>
   );
 };
