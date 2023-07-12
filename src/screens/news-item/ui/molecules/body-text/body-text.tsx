@@ -12,6 +12,7 @@ const Link = styled(Typography)`
   color: ${({ theme }) => theme.palette.text.secondary};
   margin-top: ${({ theme }) => theme.spacing(3)}px;
   text-align: center;
+  padding: ${({ theme }) => theme.spacing(1)}px;
 `;
 
 type TBodyTextProps = {
@@ -25,7 +26,7 @@ export const BodyText = ({ content, link }: TBodyTextProps) => {
       <Text variant="title">{content.replace("\n", " ")}</Text>
       {link && (
         <Link variant="title" onPress={() => Linking.openURL(link)}>
-          {link}
+          Ознакомиться
         </Link>
       )}
     </>

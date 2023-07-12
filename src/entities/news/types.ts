@@ -7,3 +7,5 @@ export type TNews = {
   shortText: string;
   createdAt: string;
 };
+
+export type TSortType = "OLD" | "WITHOUT_SORT" | "NEW";

@@ -11,7 +11,7 @@ import { useNavigation } from "@react-navigation/native";
 
 const List = styled(FlatList<TNews>)`
   flex-grow: 1;
-  margin-top: ${({ theme }) => theme.spacing(3)}px;
+  /* margin-top: ${({ theme }) => theme.spacing(3)}px; */
   margin-bottom: ${({ theme }) => theme.spacing(3)}px;
 `;
 
