@@ -16,7 +16,11 @@ export const MainStack = () => {
         component={News}
         options={{ ...defaultOptions }}
       />
-      <Stack.Screen name="newsItem" component={NewsItem} />
+      <Stack.Screen
+        name="newsItem"
+        component={NewsItem}
+        options={{ ...defaultOptions }}
+      />
     </Stack.Navigator>
   );
 };

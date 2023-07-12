@@ -1,5 +1,6 @@
 import { styled } from "@shared/ui";
 import { Animated, StyleSheet } from "react-native";
+import { useTheme } from "styled-components";
 
 type TDynamicHeaderProps = {
   animHeaderValue: Animated.Value;
@@ -13,7 +14,7 @@ const Image = styled.Image.attrs({
   width: 100%;
 `;
 
-const MAX_HEIGHT = 250;
+const MAX_HEIGHT = 300;
 const MIN_HEIGHT = 100;
 
 export const DynamicHeader = ({
@@ -25,6 +26,7 @@ export const DynamicHeader = ({
     outputRange: [MAX_HEIGHT, MIN_HEIGHT],
     extrapolate: "clamp",
   });
+  const theme = useTheme();
 
   return (
     <Animated.View
@@ -32,6 +34,7 @@ export const DynamicHeader = ({
         styles.header,
         {
           height: scaleAnim,
+          backgroundColor: theme.palette.background.secondary,
         },
       ]}
     >

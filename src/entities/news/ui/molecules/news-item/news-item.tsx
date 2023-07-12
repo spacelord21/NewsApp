@@ -1,6 +1,7 @@
 import { TNews } from "@entities/news/types";
 import { Typography, styled } from "@shared/ui";
 import { NewsPicture } from "../../atoms";
+import { StyleSheet } from "react-native";
 
 const Container = styled.TouchableWithoutFeedback`
   flex-direction: column;
@@ -15,10 +16,7 @@ const Title = styled(Typography).attrs({})`
   left: ${({ theme }) => theme.spacing(2)}px;
   letter-spacing: 2px;
   width: 90%;
-`;
-
-const DescriptionWrapper = styled.View`
-  background-color: ${({ theme }) => theme.palette.background.secondary};
+  font-weight: bold;
 `;
 
 const ImageWrapper = styled.View`
@@ -37,31 +35,31 @@ export const NewsItem = ({ news, onPress }: TNewsItemProps) => {
   const { imageUrl, title } = news;
   return (
     <Container onPress={onPress}>
-      <ImageWrapper
-        style={{
-          shadowColor: "rgb(0, 0, 0)",
-          shadowOffset: {
-            width: 5,
-            height: 5,
-          },
-          shadowOpacity: 0.5,
-          shadowRadius: 2,
-          elevation: 6,
-          backgroundColor: "white",
-        }}
-      >
+      <ImageWrapper style={styles.imageWrapper}>
         <NewsPicture imageUrl={imageUrl} />
-        <Title
-          variant="newsTitle"
-          style={{
-            textShadowColor: "black",
-            textShadowOffset: { height: 1, width: 1 },
-            textShadowRadius: 10,
-          }}
-        >
+        <Title variant="newsTitle" style={styles.title}>
           {title}
         </Title>
       </ImageWrapper>
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  imageWrapper: {
+    shadowColor: "rgb(0, 0, 0)",
+    shadowOffset: {
+      width: 5,
+      height: 5,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 6,
+    backgroundColor: "white",
+  },
+  title: {
+    textShadowColor: "black",
+    textShadowOffset: { height: 1, width: 1 },
+    textShadowRadius: 10,
+  },
+});

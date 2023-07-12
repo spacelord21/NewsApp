@@ -7,10 +7,10 @@ import { PrimaryButton, Typography, styled } from "@shared/ui";
 import { useSelector } from "react-redux";
 
 const Container = styled.View`
-  height: 80px;
+  height: 90px;
   width: 100%;
   flex-direction: row;
-  background-color: ${({ theme }) => theme.palette.background.secondary};
+  background-color: ${({ theme }) => theme.palette.background.tertiary};
   justify-content: space-around;
   align-items: center;
 `;
@@ -22,7 +22,7 @@ const Image = styled.Image`
 `;
 
 const Text = styled(Typography)`
-  color: ${({ theme }) => theme.palette.text.primary};
+  color: ${({ theme }) => theme.palette.text.secondary};
 `;
 
 type Navigation = NativeStackNavigationProp<TRootStackParamList, "mainStack">;
