@@ -44,7 +44,7 @@ export const NewsList = ({ news, loading, amountOfPages }: TNewsListProps) => {
   const onEndReachedHandler = () => {
     if (loading || page > amountOfPages) return;
     dispatch(fetchMoreNews(page)).then(() => {
-      setPage((prev) => (prev != amountOfPages ? prev + 1 : prev));
+      setPage((prev) => prev + 1);
     });
   };
 

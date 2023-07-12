@@ -7,7 +7,7 @@ import { PrimaryButton, Typography, styled } from "@shared/ui";
 import { useSelector } from "react-redux";
 
 const Container = styled.View`
-  height: 120px;
+  height: 80px;
   width: 100%;
   flex-direction: row;
   background-color: ${({ theme }) => theme.palette.background.secondary};

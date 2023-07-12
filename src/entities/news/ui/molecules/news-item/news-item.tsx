@@ -1,5 +1,5 @@
 import { TNews } from "@entities/news/types";
-import { PrimaryButton, Typography, styled } from "@shared/ui";
+import { Typography, styled } from "@shared/ui";
 import { NewsPicture } from "../../atoms";
 
 const Container = styled.TouchableWithoutFeedback`
