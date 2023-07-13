@@ -3,7 +3,8 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { RootStack } from "./navigation/root-stack";
 import { AppThemeProvider } from "@shared/ui";
 import { Provider } from "react-redux";
-import { store } from "./store";
+import { persistor, store } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
 
 export const App = () => {
   return (
@@ -11,9 +12,11 @@ export const App = () => {
       <SafeAreaView style={{ flex: 1 }} edges={{ top: "maximum" }}>
         <AppThemeProvider>
           <Provider store={store}>
-            <NavigationContainer>
-              <RootStack />
-            </NavigationContainer>
+            <PersistGate persistor={persistor}>
+              <NavigationContainer>
+                <RootStack />
+              </NavigationContainer>
+            </PersistGate>
           </Provider>
         </AppThemeProvider>
       </SafeAreaView>

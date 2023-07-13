@@ -14,5 +14,5 @@ type TPictureProps = {
 };
 
 export const NewsPicture = ({ imageUrl }: TPictureProps) => {
-  return <Image source={{ uri: imageUrl }} />;
+  return <Image source={{ uri: imageUrl ?? null }} />;
 };
