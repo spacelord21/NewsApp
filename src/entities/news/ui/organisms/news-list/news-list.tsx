@@ -1,18 +1,23 @@
 import { TNews } from "@entities/news/types";
 import { styled } from "@shared/ui";
-import { ActivityIndicator, FlatList, ListRenderItem } from "react-native";
+import { FlatList, ListRenderItem } from "react-native";
 import { NewsItem } from "../../molecules";
 import { useEffect, useState } from "react";
 import { useAppDispatch } from "@app/store";
-import { fetchMoreNews } from "@entities/news/api";
+import { fetchMoreNews, fetchNews } from "@entities/news/api";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { TMainStackParamList } from "@app/navigation/types";
 import { useNavigation } from "@react-navigation/native";
 
 const List = styled(FlatList<TNews>)`
   flex-grow: 1;
-  /* margin-top: ${({ theme }) => theme.spacing(3)}px; */
   margin-bottom: ${({ theme }) => theme.spacing(3)}px;
+`;
+
+const Spiner = styled.ActivityIndicator.attrs((props) => ({
+  color: props.theme.palette.text.tertiary,
+}))`
+  margin-top: ${({ theme }) => theme.spacing(1)}px;
 `;
 
 const Container = styled.View`
@@ -26,6 +31,7 @@ type TNewsListProps = {
 };
 
 type Navigation = NativeStackNavigationProp<TMainStackParamList, "news">;
+const DEFAULT_PAGE_NUMBER = 2;
 
 export const NewsList = ({ news, loading, amountOfPages }: TNewsListProps) => {
   const navigation = useNavigation<Navigation>();
@@ -41,13 +47,14 @@ export const NewsList = ({ news, loading, amountOfPages }: TNewsListProps) => {
 
   const dispatch = useAppDispatch();
   // изначально с page = 2, т.к с api предназначенным под inf scroll первый фетч был бы ?page=1
-  const [page, setPage] = useState(2);
+  const [page, setPage] = useState(DEFAULT_PAGE_NUMBER);
+  const shouldFetchMoreData = loading || page > amountOfPages;
 
   useEffect(() => {
-    return () => setPage(2);
+    return () => setPage(DEFAULT_PAGE_NUMBER);
   }, []);
   const onEndReachedHandler = () => {
-    if (loading || page > amountOfPages) return;
+    if (shouldFetchMoreData) return;
     dispatch(fetchMoreNews(page)).then(() => {
       setPage((prev) => prev + 1);
     });
@@ -56,6 +63,11 @@ export const NewsList = ({ news, loading, amountOfPages }: TNewsListProps) => {
   return (
     <Container>
       <List
+        onRefresh={() => {
+          dispatch(fetchNews());
+          setPage(DEFAULT_PAGE_NUMBER);
+        }}
+        refreshing={loading && !shouldFetchMoreData}
         onEndReached={onEndReachedHandler}
         data={news}
         renderItem={renderItem}
@@ -65,9 +77,7 @@ export const NewsList = ({ news, loading, amountOfPages }: TNewsListProps) => {
           justifyContent: "center",
         }}
         onEndReachedThreshold={0.3}
-        ListFooterComponent={
-          loading ? <ActivityIndicator size={"large"} /> : null
-        }
+        ListFooterComponent={loading ? <Spiner size={"large"} /> : null}
       />
     </Container>
   );
