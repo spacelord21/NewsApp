@@ -1,7 +1,7 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {TRootStackParamList} from '../types';
-import {AuthStack} from '../auth-stack';
-import {MainStack} from '../main-stack';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { TRootStackParamList } from "../types";
+import { AuthStack } from "../auth-stack";
+import { MainStack } from "../main-stack";
 
 const Stack = createNativeStackNavigator<TRootStackParamList>();
 const defaultOptions = {
@@ -14,12 +14,12 @@ export const RootStack = () => {
       <Stack.Screen
         name="authStack"
         component={AuthStack}
-        options={{...defaultOptions}}
+        options={{ ...defaultOptions }}
       />
       <Stack.Screen
         name="mainStack"
         component={MainStack}
-        options={{...defaultOptions}}
+        options={{ ...defaultOptions }}
       />
     </Stack.Navigator>
   );

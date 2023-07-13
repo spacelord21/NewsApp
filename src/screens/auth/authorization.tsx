@@ -1,4 +1,4 @@
-import {Input, PrimaryButton, styled} from '@shared/ui';
+import {Input, PrimaryButton, Typography, styled} from '@shared/ui';
 import {useAuth} from './hooks';
 import {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
@@ -16,19 +16,32 @@ const Container = styled.View`
   align-items: center;
 `;
 
+const ErrorText = styled(Typography)`
+  color: ${({theme}) => theme.palette.accent['color-danger-500']};
+  text-align: center;
+  margin-bottom: ${({theme}) => theme.spacing(2)}px;
+`;
+
 export const Authorization = () => {
-  const {authHandler, password, setPassword, setUsername, username} = useAuth();
-  const navigation = useNavigation<Navigation>();
-  const [loading, setLoading] = useState(false);
+  const {
+    authHandler,
+    password,
+    setPassword,
+    email,
+    setEmail,
+    errorMessage,
+    loading,
+  } = useAuth();
   const theme = useTheme();
 
   return (
     <Container>
+      {errorMessage && <ErrorText variant="subtitle">{errorMessage}</ErrorText>}
       <Input
-        onChange={setUsername}
-        value={username}
-        placeholder="Логин"
-        key="username"
+        onChange={setEmail}
+        value={email}
+        placeholder="Почта"
+        key="email"
       />
       <Input
         onChange={setPassword}
@@ -38,7 +51,9 @@ export const Authorization = () => {
         type="password"
         isPassword={true}
       />
-      <PrimaryButton onPress={authHandler} disabled={loading}>
+      <PrimaryButton
+        onPress={authHandler}
+        disabled={Boolean(!email && !password)}>
         {loading ? (
           <ActivityIndicator
             size={'small'}
