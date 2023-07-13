@@ -29,6 +29,7 @@
       "dom.iterable",
       "esnext"
     ],
+    "declaration": true,
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -43,11 +44,11 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noImplicitThis": true,
     "strictNullChecks": true,
-    // "typeRoots": ["node_modules/@types"],
-    "types": ["@types/styled-components-react-native"]
+    // "typeRoots": ["src/app/store/types.d.ts"],
+    // "types": ["react-native"]
   },
   "exclude": ["node_modules"],
   "include": ["src/**/*"]

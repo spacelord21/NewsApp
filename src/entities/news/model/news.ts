@@ -3,6 +3,7 @@ import { TNews } from "../types";
 import { useSelector } from "react-redux";
 import { fetchMoreNews, fetchNews } from "../api";
 import { mappedData } from "../api/fetch-news/mapper";
+import { RootState } from "@app/store/@types";
 
 /* 
   т.к в предоставленном api нет возможности постраничной загрузки новостей, 
@@ -81,7 +82,7 @@ export const useNews = () =>
   useSelector(
     createSelector(
       (state: RootState) => state.newsReducer,
-      (state): TNewsSlice => {
+      (state) => {
         return state;
       }
     )

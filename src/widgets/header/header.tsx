@@ -1,10 +1,9 @@
 import { TRootStackParamList } from "@app/navigation/types";
 import { useAppDispatch } from "@app/store";
-import { logout } from "@entities/user";
+import { logout, useUser } from "@entities/user";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { PrimaryButton, Typography, styled } from "@shared/ui";
-import { useSelector } from "react-redux";
+import { Typography, styled } from "@shared/ui";
 
 const Container = styled.View`
   height: 90px;
@@ -30,19 +29,16 @@ type Navigation = NativeStackNavigationProp<TRootStackParamList, "mainStack">;
 export const Header = () => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<Navigation>();
-  const { avatar_url, username } = useSelector(
-    (state: RootState) => state.user
-  );
-
+  const { avatar_url, username } = useUser();
   const handleLogout = () => {
-    dispatch(logout());
     navigation.navigate("authStack");
+    dispatch(logout());
   };
 
   return (
     <Container>
       <Text variant="subtitle">{username}</Text>
-      <Image source={{ uri: avatar_url }} />
+      {avatar_url && <Image source={{ uri: avatar_url }} />}
       <Text onPress={handleLogout}>Выйти</Text>
     </Container>
   );

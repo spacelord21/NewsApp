@@ -1,15 +1,25 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
-import { TUser } from "../types";
+import { createAction, createSelector, createSlice } from "@reduxjs/toolkit";
+import { TUser, TUserTokens } from "../types";
 import { authorization } from "../api";
 import { api } from "@app/api";
+import { useSelector } from "react-redux";
+import { RootState } from "@app/store/@types";
 
-const initialState: TUser & { errorMessage: string; loading: boolean } = {
-  avatar_url: "",
-  id: 0,
-  username: "",
-  errorMessage: "",
-  loading: false,
+const initialTokensState: TUserTokens = {
+  accessToken: "",
+  client: "",
+  uid: "",
 };
+
+export const initialState: TUser & { errorMessage: string; loading: boolean } =
+  {
+    avatar_url: "",
+    id: 0,
+    username: "",
+    errorMessage: "",
+    tokens: initialTokensState,
+    loading: false,
+  };
 
 export const logout = createAction("logout");
 
@@ -19,6 +29,11 @@ export const user = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(authorization.fulfilled, (state, { payload }) => {
+      api.setHeaders({
+        "access-token": payload.tokens.accessToken,
+        client: payload.tokens.client,
+        uid: payload.tokens.uid,
+      });
       return { ...state, loading: false, errorMessage: "", ...payload };
     });
     builder.addCase(authorization.rejected, (state, { payload }) => {
@@ -37,3 +52,13 @@ export const user = createSlice({
     });
   },
 });
+
+export const useUser = () =>
+  useSelector(
+    createSelector(
+      (state: RootState) => state.user,
+      (state) => {
+        return state;
+      }
+    )
+  );

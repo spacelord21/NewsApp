@@ -1,25 +1,19 @@
-import {Input, PrimaryButton, Typography, styled} from '@shared/ui';
-import {useAuth} from './hooks';
-import {useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {TRootStackParamList} from '@app/navigation/types';
-import {ActivityIndicator} from 'react-native';
-import {useTheme} from 'styled-components';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-
-type Navigation = NativeStackNavigationProp<TRootStackParamList, 'authStack'>;
+import { Input, PrimaryButton, Typography, styled } from "@shared/ui";
+import { useAuth } from "./hooks";
+import { ActivityIndicator } from "react-native";
+import { useTheme } from "styled-components";
 
 const Container = styled.View`
   flex: 1;
-  background-color: ${({theme}) => theme.palette.background.primary};
+  background-color: ${({ theme }) => theme.palette.background.primary};
   justify-content: center;
   align-items: center;
 `;
 
 const ErrorText = styled(Typography)`
-  color: ${({theme}) => theme.palette.accent['color-danger-500']};
+  color: ${({ theme }) => theme.palette.accent["color-danger-500"]};
   text-align: center;
-  margin-bottom: ${({theme}) => theme.spacing(2)}px;
+  margin-bottom: ${({ theme }) => theme.spacing(2)}px;
 `;
 
 export const Authorization = () => {
@@ -53,14 +47,15 @@ export const Authorization = () => {
       />
       <PrimaryButton
         onPress={authHandler}
-        disabled={Boolean(!email && !password)}>
+        disabled={Boolean(!email && !password)}
+      >
         {loading ? (
           <ActivityIndicator
-            size={'small'}
-            color={theme.palette.accent['color-primary-600']}
+            size={"small"}
+            color={theme.palette.accent["color-primary-600"]}
           />
         ) : (
-          'Авторизоваться'
+          "Авторизоваться"
         )}
       </PrimaryButton>
     </Container>
