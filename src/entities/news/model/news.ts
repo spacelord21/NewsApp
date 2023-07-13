@@ -14,7 +14,7 @@ import { RootState } from "@app/store/@types";
 
 const DEFAULT_VALUE_OF_NEWS_PER_PAGE = 10;
 
-type TNewsSlice = {
+export type TNewsSlice = {
   news: TNews[];
   loading: boolean;
   errorMessage: string;
@@ -22,7 +22,7 @@ type TNewsSlice = {
   amountOfPages: number;
 };
 
-const initialState: TNewsSlice = {
+export const initialState: TNewsSlice = {
   news: [],
   errorMessage: "",
   loading: false,

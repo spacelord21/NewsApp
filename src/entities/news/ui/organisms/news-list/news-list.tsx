@@ -60,13 +60,15 @@ export const NewsList = ({ news, loading, amountOfPages }: TNewsListProps) => {
     });
   };
 
+  const onResfreshHandler = () => {
+    dispatch(fetchNews());
+    setPage(DEFAULT_PAGE_NUMBER);
+  };
+
   return (
     <Container>
       <List
-        onRefresh={() => {
-          dispatch(fetchNews());
-          setPage(DEFAULT_PAGE_NUMBER);
-        }}
+        onRefresh={onResfreshHandler}
         refreshing={loading && !shouldFetchMoreData}
         onEndReached={onEndReachedHandler}
         data={news}

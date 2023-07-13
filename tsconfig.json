@@ -48,7 +48,7 @@
     "noImplicitThis": true,
     "strictNullChecks": true,
     // "typeRoots": ["src/app/store/types.d.ts"],
-    // "types": ["react-native"]
+    "types": ["@types/styled-components-react-native"]
   },
   "exclude": ["node_modules"],
   "include": ["src/**/*"]

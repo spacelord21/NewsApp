@@ -2,12 +2,12 @@ import { api } from "@app/api";
 import { TUser, TUserTokens } from "@entities/user/types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-type TRequestProps = {
+export type TRequestProps = {
   email: string;
   password: string;
 };
 
-type TResponse = { user: TUser } & {
+export type TResponse = { user: TUser } & {
   success?: boolean;
   message?: string;
 };
