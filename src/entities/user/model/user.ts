@@ -17,7 +17,7 @@ export const user = createSlice({
   name: "user",
   initialState,
   reducers: {},
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder.addCase(authorization.fulfilled, (state, { payload }) => {
       return { ...state, loading: false, errorMessage: "", ...payload };
     });
@@ -30,7 +30,6 @@ export const user = createSlice({
       return { ...state, loading: true };
     });
     builder.addCase(logout, () => {
-      console.log("here");
       api.deleteHeader("access-token");
       api.deleteHeader("client");
       api.deleteHeader("uid");

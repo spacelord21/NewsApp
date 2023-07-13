@@ -1,6 +1,7 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {TMainStackParamList} from '../types';
-import {News} from '@screens/news';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { TMainStackParamList } from "../types";
+import { News } from "@screens/news";
+import { NewsItem } from "@screens/news-item";
 
 const Stack = createNativeStackNavigator<TMainStackParamList>();
 const defaultOptions = {
@@ -13,7 +14,12 @@ export const MainStack = () => {
       <Stack.Screen
         name="news"
         component={News}
-        options={{...defaultOptions}}
+        options={{ ...defaultOptions }}
+      />
+      <Stack.Screen
+        name="newsItem"
+        component={NewsItem}
+        options={{ ...defaultOptions }}
       />
     </Stack.Navigator>
   );

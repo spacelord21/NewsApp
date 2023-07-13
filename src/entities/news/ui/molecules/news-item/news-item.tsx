@@ -1,26 +1,65 @@
-import {TNews} from '@entities/news/types';
-import {PrimaryButton, Typography, styled} from '@shared/ui';
-import {NewsPicture} from '../../atoms';
+import { TNews } from "@entities/news/types";
+import { Typography, styled } from "@shared/ui";
+import { NewsPicture } from "../../atoms";
+import { StyleSheet } from "react-native";
 
-const Container = styled.View`
+const Container = styled.TouchableWithoutFeedback`
   flex-direction: column;
-  width: 300px;
-  height: 300px;
-  margin-top: ${({theme}) => theme.spacing(3)}px;
+  justify-content: center;
 `;
 
-const Title = styled(Typography)`
-  color: ${({theme}) => theme.palette.text.primary};
+const Title = styled(Typography).attrs({})`
+  color: ${({ theme }) => theme.palette.text.secondary};
+  text-align: left;
+  position: absolute;
+  bottom: ${({ theme }) => theme.spacing(2)}px;
+  left: ${({ theme }) => theme.spacing(2)}px;
+  letter-spacing: 2px;
+  width: 90%;
+  font-weight: bold;
 `;
 
-type TNewsItemProps = TNews;
+const ImageWrapper = styled.View`
+  position: relative;
+  border-radius: 20px;
+  width: 95%;
+  margin-top: ${({ theme }) => theme.spacing(3)}px;
+`;
 
-export const NewsItem = ({description, id, image, title}: TNewsItemProps) => {
+type TNewsItemProps = {
+  news: TNews;
+  onPress: () => void;
+};
+
+export const NewsItem = ({ news, onPress }: TNewsItemProps) => {
+  const { imageUrl, title } = news;
   return (
-    <Container>
-      <NewsPicture imageUrl={image} />
-      <Title variant="title">{title}</Title>
-      <PrimaryButton onPress={() => {}}>К НОВОСТИ</PrimaryButton>
+    <Container onPress={onPress}>
+      <ImageWrapper style={styles.imageWrapper}>
+        <NewsPicture imageUrl={imageUrl} />
+        <Title variant="newsTitle" style={styles.title}>
+          {title}
+        </Title>
+      </ImageWrapper>
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  imageWrapper: {
+    shadowColor: "rgb(0, 0, 0)",
+    shadowOffset: {
+      width: 5,
+      height: 5,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 2,
+    elevation: 6,
+    backgroundColor: "white",
+  },
+  title: {
+    textShadowColor: "black",
+    textShadowOffset: { height: 1, width: 1 },
+    textShadowRadius: 10,
+  },
+});
