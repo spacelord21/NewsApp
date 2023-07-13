@@ -5,11 +5,11 @@ export const theme = {
   palette: {
     background: {
       primary: "#fff",
-      secondary: "#FEB79E",
+      secondary: "#CAF2FD",
       tertiary: "	#333333",
     },
     text: {
-      primary: "#B00724",
+      primary: "#000",
       secondary: "#fff",
       tertiary: "#000",
     },

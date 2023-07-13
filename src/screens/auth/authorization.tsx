@@ -52,7 +52,7 @@ export const Authorization = () => {
         {loading ? (
           <ActivityIndicator
             size={"small"}
-            color={theme.palette.accent["color-primary-600"]}
+            color={theme.palette.background.primary}
           />
         ) : (
           "Авторизоваться"
