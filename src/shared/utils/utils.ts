@@ -1,9 +1,10 @@
 export const getLink = (str: string): string | undefined => {
-  const regex = /<a\s+href="(.*?)"/;
+  const regex = /<a\s+href=['"](.*?)['"]/i;
   const match = str.match(regex);
   if (match) {
     return match[1].toString();
   }
+  return undefined;
 };
 
 export const removeHTMLTagsFromString = (str: string): string => {
@@ -11,7 +12,11 @@ export const removeHTMLTagsFromString = (str: string): string => {
 };
 
 export const parseDate = (str: string): string => {
-  return new Date(Date.parse(str)).toLocaleDateString("ru-RU", {
+  const date = new Date(Date.parse(str));
+  if (isNaN(date.getTime())) {
+    return "";
+  }
+  return date.toLocaleDateString("ru-RU", {
     weekday: "long",
     year: "numeric",
     month: "long",
