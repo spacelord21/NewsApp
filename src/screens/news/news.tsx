@@ -1,12 +1,11 @@
 import { NewsList, fetchNews, useNews } from "@entities/news";
-import { TSortType } from "@entities/news/types";
 import { styled } from "@shared/ui";
-import { parseDate } from "@shared/utils";
 import { Header } from "@widgets/header";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import { SortPicker } from "./ui";
 import { useSortNews } from "./hooks";
 import { useAppDispatch } from "@app/store";
+import { BackHandler } from "react-native";
 
 const Container = styled.View`
   flex: 1;
@@ -15,6 +14,10 @@ const Container = styled.View`
   flex-direction: column;
   background-color: ${({ theme }) => theme.palette.background.primary};
 `;
+
+const Spiner = styled.ActivityIndicator.attrs((props) => ({
+  color: props.theme.palette.text.primary,
+}))``;
 
 export const News = () => {
   const { news, errorMessage, loading, displayedNews, amountOfPages } =
@@ -25,15 +28,34 @@ export const News = () => {
   useEffect(() => {
     dispatch(fetchNews());
   }, []);
+
+  useEffect(() => {
+    const backAction = () => {
+      return true;
+    };
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction
+    );
+    return () => backHandler.remove();
+  }, []);
+
   return (
     <Container>
       <Header />
-      <SortPicker setValue={setSortType} value={sortType} />
-      <NewsList
-        news={newsSort}
-        loading={loading}
-        amountOfPages={amountOfPages}
-      />
+      {loading ? (
+        <Spiner size="large" />
+      ) : (
+        <>
+          <SortPicker setValue={setSortType} value={sortType} />
+
+          <NewsList
+            news={newsSort}
+            loading={loading}
+            amountOfPages={amountOfPages}
+          />
+        </>
+      )}
     </Container>
   );
 };
