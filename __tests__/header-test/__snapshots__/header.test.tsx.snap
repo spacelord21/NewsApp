@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header component информация о пользователе и автарка рендерятся корректно 1`] = `
+<View
+  style={
+    [
+      {
+        "alignItems": "center",
+        "backgroundColor": "#333333",
+        "flexDirection": "row",
+        "height": 90,
+        "justifyContent": "space-around",
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <Text
+    allowFontScaling={false}
+    style={
+      [
+        {
+          "color": "#fff",
+          "fontFamily": "ROBOTO_MEDIUM",
+          "fontSize": 16,
+          "letterSpacing": 0.15,
+        },
+      ]
+    }
+    variant="subtitle"
+  >
+    John Doe
+  </Text>
+  <Image
+    source={
+      {
+        "uri": "https://some.ru",
+      }
+    }
+    style={
+      [
+        {
+          "borderRadius": 50,
+          "height": 70,
+          "width": 70,
+        },
+      ]
+    }
+    testID="avatar_comp"
+  />
+  <Text
+    allowFontScaling={false}
+    onPress={[Function]}
+    style={
+      [
+        {
+          "color": "#fff",
+          "fontFamily": "ROBOTO_REGULAR",
+          "fontSize": 16,
+          "letterSpacing": 0.5,
+        },
+      ]
+    }
+  >
+    Выйти
+  </Text>
+</View>
+`;

@@ -57,7 +57,7 @@ export const useUser = () =>
   useSelector(
     createSelector(
       (state: RootState) => state.user,
-      (state) => {
+      (state): TUser => {
         return state;
       }
     )

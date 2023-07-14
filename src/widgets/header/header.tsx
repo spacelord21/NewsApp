@@ -38,7 +38,9 @@ export const Header = () => {
   return (
     <Container>
       <Text variant="subtitle">{username}</Text>
-      {avatar_url && <Image source={{ uri: avatar_url }} />}
+      {avatar_url && (
+        <Image source={{ uri: avatar_url }} testID="avatar_comp" />
+      )}
       <Text onPress={handleLogout}>Выйти</Text>
     </Container>
   );
