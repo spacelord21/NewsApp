@@ -48,11 +48,13 @@ export const Authorization = () => {
       <PrimaryButton
         onPress={authHandler}
         disabled={Boolean(!email && !password)}
+        testID="auth_btn"
       >
         {loading ? (
           <ActivityIndicator
             size={"small"}
             color={theme.palette.background.primary}
+            testID="indicator"
           />
         ) : (
           "Авторизоваться"

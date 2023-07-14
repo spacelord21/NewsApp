@@ -15,7 +15,7 @@ export const useAuth = () => {
   const user = useUser();
   const navigation = useNavigation<Navigation>();
 
-  const authHandler = async () => {
+  const authHandler = () => {
     dispatch(authorization({ email: email, password: password }));
   };
 

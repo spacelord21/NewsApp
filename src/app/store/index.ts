@@ -8,6 +8,7 @@ import {
   PAUSE,
   PERSIST,
   PURGE,
+  PersistConfig,
   REGISTER,
   REHYDRATE,
   persistReducer,

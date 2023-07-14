@@ -27,6 +27,7 @@ type TButtonProps = {
   children: ReactNode | string;
   onPress: () => void;
   disabled?: boolean;
+  testID?: string;
 };
 
 export const PrimaryButton = ({ children, ...rest }: TButtonProps) => {

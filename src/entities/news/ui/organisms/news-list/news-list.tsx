@@ -53,20 +53,23 @@ export const NewsList = ({ news, loading, amountOfPages }: TNewsListProps) => {
   useEffect(() => {
     return () => setPage(DEFAULT_PAGE_NUMBER);
   }, []);
-  const onEndReachedHandler = () => {
+
+  const onEndReachedHandler = async () => {
     if (shouldFetchMoreData) return;
-    dispatch(fetchMoreNews(page)).then(() => {
-      setPage((prev) => prev + 1);
-    });
+    await dispatch(fetchMoreNews(page));
+    setPage((prev) => prev + 1);
+  };
+
+  const onResfreshHandler = () => {
+    dispatch(fetchNews());
+    setPage(DEFAULT_PAGE_NUMBER);
   };
 
   return (
     <Container>
       <List
-        onRefresh={() => {
-          dispatch(fetchNews());
-          setPage(DEFAULT_PAGE_NUMBER);
-        }}
+        testID="news-list"
+        onRefresh={onResfreshHandler}
         refreshing={loading && !shouldFetchMoreData}
         onEndReached={onEndReachedHandler}
         data={news}
@@ -77,7 +80,9 @@ export const NewsList = ({ news, loading, amountOfPages }: TNewsListProps) => {
           justifyContent: "center",
         }}
         onEndReachedThreshold={0.3}
-        ListFooterComponent={loading ? <Spiner size={"large"} /> : null}
+        ListFooterComponent={
+          loading ? <Spiner size={"large"} testID="spinner" /> : null
+        }
       />
     </Container>
   );

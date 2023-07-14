@@ -23,6 +23,8 @@ export const initialState: TUser & { errorMessage: string; loading: boolean } =
 
 export const logout = createAction("logout");
 
+export type TUserSlice = typeof initialState;
+
 export const user = createSlice({
   name: "user",
   initialState,
@@ -57,7 +59,7 @@ export const useUser = () =>
   useSelector(
     createSelector(
       (state: RootState) => state.user,
-      (state) => {
+      (state): TUserSlice => {
         return state;
       }
     )
