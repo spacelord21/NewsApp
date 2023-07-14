@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { fetchMoreNews, fetchNews } from "../api";
 import { mappedData } from "../api/fetch-news/mapper";
 import { RootState } from "@app/store/@types";
+import { DEFAULT_VALUE_OF_NEWS_PER_PAGE } from "./consts";
 
 /* 
   т.к в предоставленном api нет возможности постраничной загрузки новостей, 
@@ -12,7 +13,7 @@ import { RootState } from "@app/store/@types";
   список отображаемых новостей 
 */
 
-const DEFAULT_VALUE_OF_NEWS_PER_PAGE = 10;
+// export const DEFAULT_VALUE_OF_NEWS_PER_PAGE = 10;
 
 export type TNewsSlice = {
   news: TNews[];

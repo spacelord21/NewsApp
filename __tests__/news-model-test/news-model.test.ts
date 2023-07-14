@@ -1,5 +1,9 @@
 import { PayloadAction, Action } from "@reduxjs/toolkit";
-import { initialState, newsReducer } from "../../src/entities/news/model";
+import {
+  TNewsSlice,
+  initialState,
+  newsReducer,
+} from "../../src/entities/news/model";
 import { fetchMoreNews, fetchNews } from "../../src/entities/news/api";
 import { TNewsModel } from "../../src/entities/news/api/fetch-news/fetch-news";
 import { mappedData } from "../../src/entities/news/api/fetch-news/mapper";
@@ -7,6 +11,10 @@ import { mappedData } from "../../src/entities/news/api/fetch-news/mapper";
 jest.mock("@react-native-async-storage/async-storage", () =>
   require("@react-native-async-storage/async-storage/jest/async-storage-mock")
 );
+
+jest.mock("../../src/entities/news/model/consts", () => ({
+  DEFAULT_VALUE_OF_NEWS_PER_PAGE: 3,
+}));
 
 const news: TNewsModel[] = [
   {
@@ -41,7 +49,6 @@ describe("news slice", () => {
   test("тест fetchNews.fulfilled", () => {
     const state = { ...initialState };
     const payload: TNewsModel[] = news;
-    const DEFAULT_VALUE_OF_NEWS_PER_PAGE = 10;
     const action: PayloadAction<TNewsModel[]> = {
       type: fetchNews.fulfilled.type,
       payload: payload,
@@ -74,5 +81,55 @@ describe("news slice", () => {
       loading: false,
       errorMessage: payload,
     });
+  });
+  test("тест fetchMoreNews.pending", () => {
+    const state = { ...initialState };
+    const action: Action = {
+      type: fetchMoreNews.pending.type,
+    };
+    const nextState = newsReducer.reducer(state, action);
+    expect(nextState).toEqual({
+      ...state,
+      loading: true,
+    });
+  });
+  test("тест fetchMoreNews.fulfilled(default news per page=3, news=4, page=2)", () => {
+    const moreNews = mappedData([...news, ...news]); // 4 items
+    const state: TNewsSlice = {
+      ...initialState,
+      news: moreNews,
+    };
+    const action: PayloadAction<number> = {
+      type: fetchMoreNews.fulfilled.type,
+      payload: 2,
+    };
+    const nextState = newsReducer.reducer(state, action);
+    expect(nextState.displayedNews).toEqual(moreNews);
+  });
+  test("тест fetchMoreNews.fulfilled(default news per page=3, news=8, page=2)", () => {
+    const moreNews = mappedData([...news, ...news, ...news, ...news]); // 8 items
+    const state: TNewsSlice = {
+      ...initialState,
+      news: moreNews,
+    };
+    const action: PayloadAction<number> = {
+      type: fetchMoreNews.fulfilled.type,
+      payload: 2,
+    };
+    const nextState = newsReducer.reducer(state, action);
+    expect(nextState.displayedNews).toEqual(moreNews.slice(0, 6));
+  });
+  test("тест fetchMoreNews.fulfilled(default news per page=3, news=8, page=3)", () => {
+    const moreNews = mappedData([...news, ...news, ...news, ...news]); // 8 items
+    const state: TNewsSlice = {
+      ...initialState,
+      news: moreNews,
+    };
+    const action: PayloadAction<number> = {
+      type: fetchMoreNews.fulfilled.type,
+      payload: 3,
+    };
+    const nextState = newsReducer.reducer(state, action);
+    expect(nextState.displayedNews).toEqual(moreNews);
   });
 });
