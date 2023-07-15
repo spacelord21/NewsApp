@@ -6,6 +6,8 @@
 
 ```bash
 yarn && yarn start
+# Тесты
+yarn test
 ```
 
 ##  Мобильное приложение новостной ленты(React Native/Typescript): 
