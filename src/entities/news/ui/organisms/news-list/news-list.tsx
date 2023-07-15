@@ -1,8 +1,8 @@
 import { TNews } from "@entities/news/types";
 import { styled } from "@shared/ui";
-import { FlatList, ListRenderItem } from "react-native";
+import { Animated, FlatList, ListRenderItem } from "react-native";
 import { NewsItem } from "../../molecules";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppDispatch } from "@app/store";
 import { fetchMoreNews, fetchNews } from "@entities/news/api";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -11,7 +11,8 @@ import { useNavigation } from "@react-navigation/native";
 
 const List = styled(FlatList<TNews>)`
   flex-grow: 1;
-  margin-bottom: ${({ theme }) => theme.spacing(3)}px;
+  margin-bottom: ${({ theme }) => theme.spacing(2)}px;
+  margin-left: ${({ theme }) => theme.spacing(1.5)}px;
 `;
 
 const Spiner = styled.ActivityIndicator.attrs((props) => ({
@@ -33,11 +34,16 @@ type TNewsListProps = {
 type Navigation = NativeStackNavigationProp<TMainStackParamList, "news">;
 const DEFAULT_PAGE_NUMBER = 2;
 
+const AnimatedList = Animated.createAnimatedComponent(List);
+
 export const NewsList = ({ news, loading, amountOfPages }: TNewsListProps) => {
+  const scrollY = useRef(new Animated.Value(0)).current;
   const navigation = useNavigation<Navigation>();
-  const renderItem: ListRenderItem<TNews> = ({ item }) => {
+  const renderItem: ListRenderItem<TNews> = ({ item, index }) => {
     return (
       <NewsItem
+        index={index}
+        scrollY={scrollY}
         news={item}
         key={item.id}
         onPress={() => navigation.navigate("newsItem", item)}
@@ -67,8 +73,12 @@ export const NewsList = ({ news, loading, amountOfPages }: TNewsListProps) => {
 
   return (
     <Container>
-      <List
+      <AnimatedList
         testID="news-list"
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: true }
+        )}
         onRefresh={onResfreshHandler}
         refreshing={loading && !shouldFetchMoreData}
         onEndReached={onEndReachedHandler}
