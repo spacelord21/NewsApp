@@ -1,6 +1,6 @@
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {TAuthStackParamList} from '../types';
-import {Authorization} from '@screens/auth';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { TAuthStackParamList } from "../types";
+import { Authorization } from "@screens/auth";
 
 const Stack = createNativeStackNavigator<TAuthStackParamList>();
 const defaultOptions = {
@@ -13,7 +13,7 @@ export const AuthStack = () => {
       <Stack.Screen
         name="auth"
         component={Authorization}
-        options={{...defaultOptions}}
+        options={{ ...defaultOptions }}
       />
     </Stack.Navigator>
   );

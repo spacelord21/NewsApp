@@ -13,8 +13,6 @@ import { DEFAULT_VALUE_OF_NEWS_PER_PAGE } from "./consts";
   список отображаемых новостей 
 */
 
-// export const DEFAULT_VALUE_OF_NEWS_PER_PAGE = 10;
-
 export type TNewsSlice = {
   news: TNews[];
   loading: boolean;

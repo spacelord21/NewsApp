@@ -1,7 +1,7 @@
 import { TNews } from "@entities/news/types";
 import { Typography, styled } from "@shared/ui";
 import { NewsPicture } from "../../atoms";
-import { StyleSheet } from "react-native";
+import { Animated, StyleSheet } from "react-native";
 
 const Container = styled.TouchableWithoutFeedback`
   flex-direction: column;
@@ -29,19 +29,42 @@ const ImageWrapper = styled.View`
 type TNewsItemProps = {
   news: TNews;
   onPress: () => void;
+  index: number;
+  scrollY: Animated.Value;
 };
-
-export const NewsItem = ({ news, onPress }: TNewsItemProps) => {
+const ITEM_SIZE = 290;
+export const NewsItem = ({ news, onPress, index, scrollY }: TNewsItemProps) => {
   const { imageUrl, title } = news;
+  const inputRange = [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 1)];
+  const opacityRange = [-1, 0, ITEM_SIZE * index, ITEM_SIZE * (index + 0.5)];
+  const scale = scrollY.interpolate({
+    inputRange,
+    outputRange: [1, 1, 1, 0],
+  });
+  const opacity = scrollY.interpolate({
+    inputRange: opacityRange,
+    outputRange: [1, 1, 1, 0],
+  });
   return (
-    <Container onPress={onPress}>
-      <ImageWrapper style={styles.imageWrapper}>
-        <NewsPicture imageUrl={imageUrl} />
-        <Title variant="newsTitle" style={styles.title}>
-          {title}
-        </Title>
-      </ImageWrapper>
-    </Container>
+    <Animated.View
+      style={{
+        transform: [
+          {
+            scale: scale,
+          },
+        ],
+        opacity,
+      }}
+    >
+      <Container onPress={onPress}>
+        <ImageWrapper style={styles.imageWrapper}>
+          <NewsPicture imageUrl={imageUrl} />
+          <Title variant="newsTitle" style={styles.title}>
+            {title}
+          </Title>
+        </ImageWrapper>
+      </Container>
+    </Animated.View>
   );
 };
 
